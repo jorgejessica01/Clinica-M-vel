@@ -1,354 +1,522 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clínica Móvel - Demonstração</title>
-    <!-- Carregando Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração de fontes e cores do Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#2563EB', // Blue-600
-                        'secondary': '#10B981', // Emerald-500
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Estilos globais e de layout para simular um app móvel */
-        body {
-            background-color: #f3f4f6; /* Gray-100 */
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        /* Limita a largura para simular a tela de um smartphone */
-        #app-container {
-            width: 100%;
-            max-width: 420px;
-            background-color: white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .view-content {
-            padding-bottom: 96px; /* Espaço para a navegação inferior */
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-        /* Classe para esconder as views não ativas */
-        .hidden-view {
-            display: none;
-        }
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Clínica Móvel - Demonstração</title>
+ <!-- Carregando Tailwind CSS CDN -->
+ <script src="https://cdn.tailwindcss.com"></script>
+ <!-- Configuração de fontes e cores do Tailwind -->
+ <script>
+ tailwind.config = {
+ theme: {
+ extend: {
+ colors: {
+ 'primary': '#2563EB', // Blue-600
+ 'secondary': '#10B981', // Emerald-500
+ },
+ fontFamily: {
+ sans: ['Inter', 'sans-serif'],
+ }
+ }
+ }
+ }
+ </script>
+ <style>
+ /* Estilos globais e de layout para simular um app móvel */
+ body {
+ background-color: #f3f4f6; /* Gray-100 */
+ font-family: 'Inter', sans-serif;
+ display: flex;
+ justify-content: center;
+ min-height: 100vh;
+ }
+ /* Limita a largura para simular a tela de um smartphone */
+ #app-container {
+ width: 100%;
+ max-width: 420px;
+ background-color: white;
+ box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+ position: relative;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ }
+ .view-content {
+ padding-bottom: 96px; /* Espaço para a navegação inferior */
+ flex-grow: 1;
+ overflow-y: auto;
+ }
+ /* Classe para esconder as views não ativas */
+ .hidden-view {
+ display: none;
+ }
 
-        /* Animação simples de clique para botões */
-        .btn-active:active {
-            transform: scale(0.98);
-        }
-        
-    </style>
-    <!-- Lucide Icons para ícones -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+ /* Animação simples de clique para botões */
+ .btn-active:active {
+ transform: scale(0.98);
+ }
+ 
+ </style>
+ <!-- Lucide Icons para ícones -->
+ <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="p-0 sm:p-4">
 
-    <!-- Container Principal do Aplicativo -->
-    <div id="app-container">
+ <!-- Container Principal do Aplicativo -->
+ <div id="app-container">
 
-        <!-- 1. Conteúdo das Views (Rolável) -->
-        <div class="view-content">
-            
-            <!-- A. Tela: PAINEL / DASHBOARD -->
-            <section id="dashboard-view" class="p-4 space-y-4">
-                <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-bold text-gray-800">Painel Clínico</h1>
-                    <i data-lucide="settings" class="w-6 h-6 text-gray-500"></i>
-                </div>
-                
-                <!-- Cartões de KPI -->
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- KPI 1: Pacientes Ativos -->
-                    <div class="bg-primary text-white p-4 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
-                        <i data-lucide="users" class="w-6 h-6 mb-2"></i>
-                        <p class="text-sm font-light">Pacientes Ativos</p>
-                        <p id="kpi-active-patients" class="text-3xl font-extrabold">...</p>
-                    </div>
-                    <!-- KPI 2: Alertas Críticos -->
-                    <div class="bg-red-600 text-white p-4 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
-                        <i data-lucide="zap" class="w-6 h-6 mb-2"></i>
-                        <p class="text-sm font-light">Alertas Críticos</p>
-                        <p class="text-3xl font-extrabold">1</p>
-                    </div>
-                    <!-- KPI 3: Coletas Pendentes -->
-                    <div class="col-span-2 bg-yellow-500 text-white p-4 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
-                        <i data-lucide="clipboard-list" class="w-6 h-6 mb-2"></i>
-                        <p class="text-sm font-light">Coletas Pendentes de Rotina</p>
-                        <p class="text-3xl font-extrabold">3</p>
-                    </div>
-                </div>
+ <!-- 1. Conteúdo das Views (Rolável) -->
+ <div class="view-content">
+ 
+ <!-- A. Tela: PAINEL / DASHBOARD -->
+ <section id="dashboard-view" class="p-4 space-y-4">
+ <div class="flex justify-between items-center mb-6">
+ <h1 class="text-2xl font-bold text-gray-800">Painel Clínico</h1>
+ <i data-lucide="settings" class="w-6 h-6 text-gray-500"></i>
+ </div>
+ 
+ <!-- Cartões de KPI -->
+ <div class="grid grid-cols-2 gap-4">
+ <!-- KPI 1: Pacientes Ativos -->
+ <div class="bg-primary text-white p-4 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
+ <i data-lucide="users" class="w-6 h-6 mb-2"></i>
+ <p class="text-sm font-light">Pacientes Ativos</p>
+ <p id="kpi-active-patients" class="text-3xl font-extrabold">...</p>
+ </div>
+ <!-- KPI 2: Alertas Críticos -->
+ <div class="bg-red-600 text-white p-4 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
+ <i data-lucide="zap" class="w-6 h-6 mb-2"></i>
+ <p class="text-sm font-light">Alertas Críticos</p>
+ <p class="text-3xl font-extrabold">1</p>
+ </div>
+ <!-- KPI 3: Coletas Pendentes -->
+ <div class="col-span-2 bg-yellow-500 text-white p-4 rounded-xl shadow-lg transition transform hover:scale-[1.02]">
+ <i data-lucide="clipboard-list" class="w-6 h-6 mb-2"></i>
+ <p class="text-sm font-light">Coletas Pendentes de Rotina</p>
+ <p class="text-3xl font-extrabold">3</p>
+ </div>
+ </div>
 
-                <!-- Lista de Ações Rápidas -->
-                <h2 class="text-xl font-semibold text-gray-700 pt-4">Ações Rápidas</h2>
-                <div class="space-y-3">
-                    <button id="btn-quick-start" onclick="switchView('patient-list-view')" class="w-full flex items-center justify-center bg-green-600 text-white py-4 rounded-xl shadow-lg hover:bg-green-700 transition btn-active">
-                        <i data-lucide="plus" class="w-6 h-6 mr-2"></i>
-                        Iniciar Nova Coleta
-                    </button>
-                    <button onclick="switchView('reports-view')" class="w-full flex items-center justify-center bg-indigo-600 text-white py-4 rounded-xl shadow-lg hover:bg-indigo-700 transition btn-active">
-                        <i data-lucide="file-text" class="w-6 h-6 mr-2"></i>
-                        Exportar Dados (Pesquisa)
-                    </button>
-                </div>
-            </section>
+ <!-- Lista de Ações Rápidas -->
+ <h2 class="text-xl font-semibold text-gray-700 pt-4">Ações Rápidas</h2>
+ <div class="space-y-3">
+ <button id="btn-quick-start" onclick="switchView('patient-list-view')" class="w-full flex items-center justify-center bg-green-600 text-white py-4 rounded-xl shadow-lg hover:bg-green-700 transition btn-active">
+ <i data-lucide="plus" class="w-6 h-6 mr-2"></i>
+ Iniciar Nova Coleta
+ </button>
+ <button onclick="switchView('reports-view')" class="w-full flex items-center justify-center bg-indigo-600 text-white py-4 rounded-xl shadow-lg hover:bg-indigo-700 transition btn-active">
+ <i data-lucide="file-text" class="w-6 h-6 mr-2"></i>
+ Exportar Dados (Pesquisa)
+ </button>
+ </div>
+ </section>
 
-            <!-- B. Tela: LISTA DE PACIENTES -->
-            <section id="patient-list-view" class="hidden-view p-4 space-y-4">
-                <h1 class="text-3xl font-bold text-gray-800">Pacientes</h1>
-                
-                <!-- Barra de Busca -->
-                <div class="relative">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
-                    <input type="text" id="patient-search" placeholder="Buscar por Nome, ID ou CPF..." class="w-full p-3 pl-10 border border-gray-300 rounded-xl focus:ring-primary focus:border-primary shadow-sm" oninput="renderPatientList()">
-                </div>
+ <!-- B. Tela: LISTA DE PACIENTES -->
+ <section id="patient-list-view" class="hidden-view p-4 space-y-4">
+ <h1 class="text-3xl font-bold text-gray-800">Pacientes</h1>
+ 
+ <!-- Barra de Busca -->
+ <div class="relative">
+ <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+ <input type="text" id="patient-search" placeholder="Buscar por Nome, ID ou CPF..." class="w-full p-3 pl-10 border border-gray-300 rounded-xl focus:ring-primary focus:border-primary shadow-sm" oninput="renderPatientList()">
+ </div>
 
-                <!-- Lista de Cards de Pacientes (Populado via JS) -->
-                <div id="patient-cards-container" class="space-y-3">
-                    <!-- Cards serão injetados aqui -->
-                </div>
-            </section>
+ <!-- Lista de Cards de Pacientes (Populado via JS) -->
+ <div id="patient-cards-container" class="space-y-3">
+ <!-- Cards serão injetados aqui -->
+ </div>
+ </section>
 
-            <!-- C. Tela: NOVO LEVANTAMENTO DE DADOS / FORMULÁRIO -->
-            <section id="new-data-view" class="hidden-view h-full flex flex-col bg-gray-50">
-                
-                <!-- Topo Fixo com Nome do Paciente e Botão Voltar -->
-                <div class="flex items-center p-4 bg-white shadow-lg z-10">
-                    <button onclick="switchView('patient-list-view')" class="text-primary hover:text-red-500 btn-active">
-                        <i data-lucide="chevron-left" class="w-7 h-7"></i>
-                    </button>
-                    <div class="flex-1 text-center truncate">
-                        <h2 id="current-patient-name" class="text-xl font-bold text-gray-800 truncate">Nome do Paciente</h2>
-                        <p id="current-patient-id" class="text-xs text-gray-500">ID: ... | Nova Coleta</p>
-                    </div>
-                    <div class="w-7"></div> <!-- Espaçador -->
-                </div>
+ <!-- C. Tela: NOVO LEVANTAMENTO DE DADOS / FORMULÁRIO -->
+ <section id="new-data-view" class="hidden-view h-full flex flex-col bg-gray-50">
+ 
+ <!-- Topo Fixo com Nome do Paciente e Botão Voltar -->
+ <div class="flex items-center p-4 bg-white shadow-lg z-10">
+ <button onclick="switchView('patient-list-view')" class="text-primary hover:text-red-500 btn-active">
+ <i data-lucide="chevron-left" class="w-7 h-7"></i>
+ </button>
+ <div class="flex-1 text-center truncate">
+ <h2 id="current-patient-name" class="text-xl font-bold text-gray-800 truncate">Nome do Paciente</h2>
+ <p id="current-patient-id" class="text-xs text-gray-500">ID: ... | Nova Coleta</p>
+ </div>
+ <div class="w-7"></div> <!-- Espaçador -->
+ </div>
 
-                <!-- Formulário (Rolável) -->
-                <div class="flex-1 overflow-y-auto p-4 space-y-6">
-                    
-                    <!-- Seção 1: Sinais Vitais (Dados Estruturados) -->
-                    <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                        <h3 class="text-lg font-semibold text-primary mb-4 flex items-center"><i data-lucide="heart" class="w-5 h-5 mr-2"></i> 1. Sinais Vitais</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <input id="vitals-ta" placeholder="T.A. (Ex: 120/80 mmHg)" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
-                            <input id="vitals-temp" placeholder="Temp. (°C)" type="text" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
-                            <input id="vitals-fc" placeholder="F.C. (bpm)" type="number" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
-                            <input id="vitals-spo2" placeholder="SpO2 (%)" type="number" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
-                        </div>
-                    </div>
+ <!-- Formulário (Rolável) -->
+ <div class="flex-1 overflow-y-auto p-4 space-y-6">
+ 
+ <!-- Seção 1: Sinais Vitais (Dados Estruturados) -->
+ <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+ <h3 class="text-lg font-semibold text-primary mb-4 flex items-center"><i data-lucide="heart" class="w-5 h-5 mr-2"></i> 1. Sinais Vitais</h3>
+ <div class="grid grid-cols-2 gap-4">
+ <input id="vitals-ta" placeholder="T.A. (Ex: 120/80 mmHg)" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
+ <input id="vitals-temp" placeholder="Temp. (°C)" type="text" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
+ <input id="vitals-fc" placeholder="F.C. (bpm)" type="number" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
+ <input id="vitals-spo2" placeholder="SpO2 (%)" type="number" class="p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm" />
+ </div>
+ </div>
 
-                    <!-- Seção 2: Sintomas Chave (Checklist para Levantamento Rápido) -->
-                    <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                        <h3 class="text-lg font-semibold text-primary mb-4 flex items-center"><i data-lucide="clipboard-list" class="w-5 h-5 mr-2"></i> 2. Status Atual (Sintomas Chave)</h3>
-                        <div id="symptoms-checklist" class="flex flex-wrap gap-2">
-                            <!-- Botões de sintomas injetados via JS -->
-                        </div>
-                    </div>
+ <!-- Seção 2: Sintomas Chave (Checklist para Levantamento Rápido) -->
+ <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+ <h3 class="text-lg font-semibold text-primary mb-4 flex items-center"><i data-lucide="clipboard-list" class="w-5 h-5 mr-2"></i> 2. Status Atual (Sintomas Chave)</h3>
+ <div id="symptoms-checklist" class="flex flex-wrap gap-2">
+ <!-- Botões de sintomas injetados via JS -->
+ </div>
+ </div>
 
-                    <!-- Seção 3: Evolução e Plano (Dados Qualitativos e Terapêuticos) -->
-                    <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                        <h3 class="text-lg font-semibold text-primary mb-4 flex items-center"><i data-lucide="file-text" class="w-5 h-5 mr-2"></i> 3. Evolução e Plano Terapêutico</h3>
-                        <textarea
-                            id="evolution-note"
-                            placeholder="Registro da Evolução Clínica e observações detalhadas (Texto Livre)..."
-                            rows="6"
-                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm resize-none"
-                        ></textarea>
-                    </div>
-                    
-                    <div class="h-4"></div> <!-- Espaçador -->
-                </div>
+ <!-- Seção 3: Evolução e Plano (Dados Qualitativos e Terapêuticos) -->
+ <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+ <h3 class="text-lg font-semibold text-primary mb-4 flex items-center"><i data-lucide="file-text" class="w-5 h-5 mr-2"></i> 3. Evolução e Plano Terapêutico</h3>
+ <textarea
+ id="evolution-note"
+ placeholder="Registro da Evolução Clínica e observações detalhadas (Texto Livre)..."
+ rows="6"
+ class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary shadow-sm resize-none"
+ ></textarea>
+ </div>
+ 
+ <div class="h-4"></div> <!-- Espaçador -->
+ </div>
 
-                <!-- Botão Fixo "Salvar Coleta" (Será movido para baixo pelo JS na barra inferior) -->
-                <div id="save-button-container" class="p-4 bg-white border-t border-gray-100 shadow-2xl fixed bottom-16 w-full max-w-md hidden">
-                    <button
-                      id="btn-save-collection"
-                      onclick="handleSaveCollection()"
-                      class="w-full flex items-center justify-center bg-green-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-green-700 transition btn-active"
-                    >
-                      <i data-lucide="save" class="w-6 h-6 mr-2"></i>
-                      Salvar Coleta de Dados
-                    </button>
-                </div>
-            </section>
+ <!-- Botão Fixo "Salvar Coleta" (Será movido para baixo pelo JS na barra inferior) -->
+ <div id="save-button-container" class="p-4 bg-white border-t border-gray-100 shadow-2xl fixed bottom-16 w-full max-w-md hidden">
+ <button
+ id="btn-save-collection"
+ onclick="handleSaveCollection()"
+ class="w-full flex items-center justify-center bg-green-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-green-700 transition btn-active"
+ >
+ <i data-lucide="save" class="w-6 h-6 mr-2"></i>
+ Salvar Coleta de Dados
+ </button>
+ </div>
+ </section>
 
-            <!-- D. Tela: RELATÓRIOS / EXPORTAÇÃO -->
-            <section id="reports-view" class="hidden-view p-4 space-y-6">
-                <h1 class="text-3xl font-bold text-gray-800">Exportar Dados para Pesquisa</h1>
-                <p class="text-gray-600">
-                    Gere conjuntos de dados anonimizados a partir dos prontuários seguindo os filtros abaixo.
-                </p>
+ <!-- D. Tela: RELATÓRIOS / EXPORTAÇÃO -->
+ <section id="reports-view" class="hidden-view p-4 space-y-6">
+ <h1 class="text-3xl font-bold text-gray-800">Exportar Dados para Pesquisa</h1>
+ <p class="text-gray-600">
+ Gere conjuntos de dados anonimizados a partir dos prontuários seguindo os filtros abaixo.
+ </p>
 
-                <!-- Filtros Simulados -->
-                <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                    <h2 class="text-xl font-semibold text-primary mb-4">Filtros de Pesquisa</h2>
-                    <div class="space-y-3">
-                        <label class="block text-sm font-medium text-gray-700">Período de Coleta:</label>
-                        <div class="flex space-x-2">
-                            <input type="date" class="p-3 border rounded-lg w-1/2 shadow-sm" value="2024-01-01" />
-                            <input type="date" class="p-3 border rounded-lg w-1/2 shadow-sm" value="2025-12-31" />
-                        </div>
-                        
-                        <label class="block pt-3 text-sm font-medium text-gray-700">Filtro Clínico (Variável Principal):</label>
-                        <select class="p-3 border rounded-lg w-full shadow-sm">
-                            <option>Todos os Pacientes</option>
-                            <option>Apenas com Diagnóstico CID-10 (Câncer)</option>
-                            <option>Apenas com HbA1c > 6.5</option>
-                            <option>Apenas Sintomas Chave (Dispneia)</option>
-                        </select>
-                    </div>
-                </div>
+ <!-- Filtros Simulados -->
+ <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+ <h2 class="text-xl font-semibold text-primary mb-4">Filtros de Pesquisa</h2>
+ <div class="space-y-3">
+ <label class="block text-sm font-medium text-gray-700">Período de Coleta:</label>
+ <div class="flex space-x-2">
+ <input type="date" class="p-3 border rounded-lg w-1/2 shadow-sm" value="2024-01-01" />
+ <input type="date" class="p-3 border rounded-lg w-1/2 shadow-sm" value="2025-12-31" />
+ </div>
+ 
+ <label class="block pt-3 text-sm font-medium text-gray-700">Filtro Clínico (Variável Principal):</label>
+ <select class="p-3 border rounded-lg w-full shadow-sm">
+ <option>Todos os Pacientes</option>
+ <option>Apenas com Diagnóstico CID-10 (Câncer)</option>
+ <option>Apenas com HbA1c > 6.5</option>
+ <option>Apenas Sintomas Chave (Dispneia)</option>
+ </select>
+ </div>
+ </div>
 
-                <p class="text-sm text-red-600 font-medium pt-2">
-                    Atenção: Todos os identificadores são removidos para garantir a anonimização dos dados de pesquisa.
-                </p>
-                
-                <!-- Botão de Exportação -->
-                <button
-                    id="btn-export"
-                    onclick="handleExport()"
-                    class="w-full flex items-center justify-center py-4 rounded-xl font-bold shadow-lg transition btn-active bg-purple-600 text-white hover:bg-purple-700"
-                >
-                    <i data-lucide="file-text" class="w-6 h-6 mr-2"></i>
-                    Exportar CSV (Dados Anônimos)
-                </button>
-            </section>
+ <p class="text-sm text-red-600 font-medium pt-2">
+ Atenção: Todos os identificadores são removidos para garantir a anonimização dos dados de pesquisa.
+ </p>
+ 
+ <!-- Botão de Exportação -->
+ <button
+ id="btn-export"
+ onclick="handleExport()"
+ class="w-full flex items-center justify-center py-4 rounded-xl font-bold shadow-lg transition btn-active bg-purple-600 text-white hover:bg-purple-700"
+ >
+ <i data-lucide="file-text" class="w-6 h-6 mr-2"></i>
+ Exportar CSV (Dados Anônimos)
+ </button>
+ </section>
 
-        </div>
+ </div>
 
-        <!-- 2. Barra de Navegação Inferior (Fixo) -->
-        <nav id="bottom-nav" class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-200 shadow-2xl z-20">
-            <div class="flex justify-around h-16">
-                <button id="nav-dashboard" onclick="switchView('dashboard-view')" class="flex flex-col items-center justify-center p-2 transition-colors duration-200 text-primary">
-                    <i data-lucide="home" class="w-6 h-6"></i>
-                    <span class="text-xs mt-1 font-medium">Início</span>
-                </button>
-                <button id="nav-patient-list" onclick="switchView('patient-list-view')" class="flex flex-col items-center justify-center p-2 transition-colors duration-200 text-gray-500 hover:text-primary">
-                    <i data-lucide="users" class="w-6 h-6"></i>
-                    <span class="text-xs mt-1 font-medium">Pacientes</span>
-                </button>
-                <button id="nav-reports" onclick="switchView('reports-view')" class="flex flex-col items-center justify-center p-2 transition-colors duration-200 text-gray-500 hover:text-primary">
-                    <i data-lucide="trending-up" class="w-6 h-6"></i>
-                    <span class="text-xs mt-1 font-medium">Relatórios</span>
-                </button>
-            </div>
-        </nav>
+ <!-- 2. Barra de Navegação Inferior (Fixo) -->
+ <nav id="bottom-nav" class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-200 shadow-2xl z-20">
+ <div class="flex justify-around h-16">
+ <button id="nav-dashboard" onclick="switchView('dashboard-view')" class="flex flex-col items-center justify-center p-2 transition-colors duration-200 text-primary">
+ <i data-lucide="home" class="w-6 h-6"></i>
+ <span class="text-xs mt-1 font-medium">Início</span>
+ </button>
+ <button id="nav-patient-list" onclick="switchView('patient-list-view')" class="flex flex-col items-center justify-center p-2 transition-colors duration-200 text-gray-500 hover:text-primary">
+ <i data-lucide="users" class="w-6 h-6"></i>
+ <span class="text-xs mt-1 font-medium">Pacientes</span>
+ </button>
+ <button id="nav-reports" onclick="switchView('reports-view')" class="flex flex-col items-center justify-center p-2 transition-colors duration-200 text-gray-500 hover:text-primary">
+ <i data-lucide="trending-up" class="w-6 h-6"></i>
+ <span class="text-xs mt-1 font-medium">Relatórios</span>
+ </button>
+ </div>
+ </nav>
 
-    </div>
+ </div>
 
-    <!-- JavaScript para Lógica de Aplicação -->
-    <script>
-        // --- DADOS SIMULADOS (MOCK DATA) ---
-        let patients = [
-            { id: 'u001', name: 'Ana Silva', birthDate: '15/05/1998', latest: '08/03/2025', status: 'Ativo' },
-            { id: 'u002', name: 'João Santos', birthDate: '03/11/1975', latest: '01/03/2025', status: 'Ativo' },
-            { id: 'u003', name: 'Maria Souza', birthDate: '20/01/2005', latest: '15/02/2025', status: 'Arquivado' },
-            { id: 'u004', name: 'Carlos Ferreira', birthDate: '10/12/1980', latest: '10/03/2025', status: 'Ativo' },
-        ];
+ <!-- JavaScript para Lógica de Aplicação -->
+ <script>
+ // --- DADOS SIMULADOS (MOCK DATA) ---
+ let patients = [
+ { id: 'u001', name: 'Ana Silva', birthDate: '15/05/1998', latest: '08/03/2025', status: 'Ativo' },
+ { id: 'u002', name: 'João Santos', birthDate: '03/11/1975', latest: '01/03/2025', status: 'Ativo' },
+ { id: 'u003', name: 'Maria Souza', birthDate: '20/01/2005', latest: '15/02/2025', status: 'Arquivado' },
+ { id: 'u004', name: 'Carlos Ferreira', birthDate: '10/12/1980', latest: '10/03/2025', status: 'Ativo' },
+ ];
 
-        let evolutions = {
-            'u001': [
-                { id: 1, date: '08/03/2025', title: 'Acompanhamento Pós-Cirúrgico', note: 'Paciente estável, sem intercorrências.', vitals: { ta: '120/80', temp: '36.5', fc: '72', spo2: '98' } },
-            ],
-            'u002': [
-                { id: 3, date: '01/03/2025', title: 'Reavaliação Diabética', note: 'Ajuste de medicação, controle glicêmico satisfatório.', vitals: { ta: '135/80', temp: '36.7', fc: '75', spo2: '97' } },
-            ],
-        };
+ let evolutions = {
+ 'u001': [
+ { id: 1, date: '08/03/2025', title: 'Acompanhamento Pós-Cirúrgico', note: 'Paciente estável, sem intercorrências.', vitals: { ta: '120/80', temp: '36.5', fc: '72', spo2: '98' } },
+ ],
+ 'u002': [
+ { id: 3, date: '01/03/2025', title: 'Reavaliação Diabética', note: 'Ajuste de medicação, controle glicêmico satisfatório.', vitals: { ta: '135/80', temp: '36.7', fc: '75', spo2: '97' } },
+ ],
+ };
 
-        const commonSymptoms = ['Dor de Cabeça', 'Febre', 'Fadiga', 'Dispneia', 'Nauseas', 'Tosse', 'Dor Abdominal'];
-        let selectedSymptoms = [];
-        let currentPatientId = null;
+ const commonSymptoms = ['Dor de Cabeça', 'Febre', 'Fadiga', 'Dispneia', 'Nauseas', 'Tosse', 'Dor Abdominal'];
+ let selectedSymptoms = [];
+ let currentPatientId = null;
 
-        /**
-         * Alterna a view ativa do aplicativo e atualiza a barra de navegação.
-         * @param {string} viewId - O ID da seção a ser exibida (ex: 'dashboard-view').
-         */
-        function switchView(viewId) {
-            const views = ['dashboard-view', 'patient-list-view', 'new-data-view', 'reports-view'];
-            const navButtons = {
-                'dashboard-view': 'nav-dashboard',
-                'patient-list-view': 'nav-patient-list',
-                'reports-view': 'nav-reports'
-            };
+ /**
+ * Alterna a view ativa do aplicativo e atualiza a barra de navegação.
+ * @param {string} viewId - O ID da seção a ser exibida (ex: 'dashboard-view').
+ */
+ function switchView(viewId) {
+ const views = ['dashboard-view', 'patient-list-view', 'new-data-view', 'reports-view'];
+ const navButtons = {
+ 'dashboard-view': 'nav-dashboard',
+ 'patient-list-view': 'nav-patient-list',
+ 'reports-view': 'nav-reports'
+ };
 
-            // Esconder todas as views
-            views.forEach(id => {
-                document.getElementById(id)?.classList.add('hidden-view');
-            });
+ // Esconder todas as views
+ views.forEach(id => {
+ document.getElementById(id)?.classList.add('hidden-view');
+ });
 
-            // Mostrar a view desejada
-            document.getElementById(viewId)?.classList.remove('hidden-view');
+ // Mostrar a view desejada
+ document.getElementById(viewId)?.classList.remove('hidden-view');
 
-            // Atualizar a barra de navegação inferior (apenas se não estiver na tela de formulário)
-            const isFormView = viewId === 'new-data-view';
-            const navBar = document.getElementById('bottom-nav');
-            const saveButton = document.getElementById('save-button-container');
-            
-            navBar.classList.toggle('hidden', isFormView);
-            saveButton.classList.toggle('hidden', !isFormView);
+ // Atualizar a barra de navegação inferior (apenas se não estiver na tela de formulário)
+ const isFormView = viewId === 'new-data-view';
+ const navBar = document.getElementById('bottom-nav');
+ const saveButton = document.getElementById('save-button-container');
+ 
+ navBar.classList.toggle('hidden', isFormView);
+ saveButton.classList.toggle('hidden', !isFormView);
 
-            // Resetar estilos dos botões da nav bar
-            Object.values(navButtons).forEach(id => {
-                document.getElementById(id)?.classList.remove('text-primary');
-                document.getElementById(id)?.classList.add('text-gray-500', 'hover:text-primary');
-            });
+ // Resetar estilos dos botões da nav bar
+ Object.values(navButtons).forEach(id => {
+ document.getElementById(id)?.classList.remove('text-primary');
+ document.getElementById(id)?.classList.add('text-gray-500', 'hover:text-primary');
+ });
 
-            // Ativar o botão correto
-            const activeNavButtonId = navButtons[viewId];
-            if (activeNavButtonId) {
-                document.getElementById(activeNavButtonId)?.classList.add('text-primary');
-                document.getElementById(activeNavButtonId)?.classList.remove('text-gray-500', 'hover:text-primary');
-            }
+ // Ativar o botão correto
+ const activeNavButtonId = navButtons[viewId];
+ if (activeNavButtonId) {
+ document.getElementById(activeNavButtonId)?.classList.add('text-primary');
+ document.getElementById(activeNavButtonId)?.classList.remove('text-gray-500', 'hover:text-primary');
+ }
 
-            // Ações específicas por view
-            if (viewId === 'patient-list-view') {
-                renderPatientList();
-            } else if (viewId === 'dashboard-view') {
-                updateDashboardKPIs();
-            }
-            
-            // Re-renderizar ícones Lucide
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-        }
+ // Ações específicas por view
+ if (viewId === 'patient-list-view') {
+ renderPatientList();
+ } else if (viewId === 'dashboard-view') {
+ updateDashboardKPIs();
+ }
+ 
+ // Re-renderizar ícones Lucide
+ if (window.lucide) {
+ lucide.createIcons();
+ }
+ }
 
-        /**
-         * Atualiza os KPIs no painel principal.
-         */
-        function updateDashboardKPIs() {
-            const activePatientsCount = patients.filter(p => p.status === 'Ativo').length;
-            document.getElementById('kpi-active-patients').textContent = activePatientsCount;
-        }
+ /**
+ * Atualiza os KPIs no painel principal.
+ */
+ function updateDashboardKPIs() {
+ const activePatientsCount = patients.filter(p => p.status === 'Ativo').length;
+ document.getElementById('kpi-active-patients').textContent = activePatientsCount;
+ }
 
-        /**
-         * Renderiza a lista de pacientes com base no termo de busca.
-         */
-        function renderPatientList() {
-            const container = document.getElementById('patient-cards-container');
-            const searchTerm = document.getElementById('patient-search').value.toLowerCase();
-            container.innerHTML = ''; // Limpar lista
+ /**
+ * Renderiza a lista de pacientes com base no termo de busca.
+ */
+ function renderPatientList() {
+ const container = document.getElementById('patient-cards-container');
+ const searchTerm = document.getElementById('patient-search').value.toLowerCase();
+ container.innerHTML = ''; // Limpar lista
 
-            const filteredPatients = patients.filter(p =>
-                p.name.toLowerCase().includes(searchTerm) ||
-                p.
+ const filteredPatients = patients.filter(p =>
+ p.name.toLowerCase().includes(searchTerm) ||
+ p.id.toLowerCase().includes(searchTerm)
+ );
+
+ if (filteredPatients.length === 0) {
+ container.innerHTML = '<p class="text-center text-gray-500 mt-8">Nenhum paciente encontrado.</p>';
+ return;
+ }
+
+ filteredPatients.forEach(patient => {
+ const card = document.createElement('div');
+ card.className = 'bg-white p-4 rounded-xl shadow-md border border-gray-100 hover:bg-blue-50 cursor-pointer transition transform duration-100 btn-active';
+ card.setAttribute('onclick', `handleSelectPatient('${patient.id}')`);
+
+ card.innerHTML = `
+ <div class="flex justify-between items-start">
+ <div>
+ <h3 class="text-xl font-bold text-gray-900">${patient.name}</h3>
+ <p class="text-sm text-gray-500 mt-1">ID do Paciente: ${patient.id} | Nasc.: ${patient.birthDate}</p>
+ <p class="text-xs font-medium text-primary mt-2">Última Coleta: ${patient.latest}</p>
+ </div>
+ <i data-lucide="chevron-right" class="w-6 h-6 text-gray-400"></i>
+ </div>
+ `;
+ container.appendChild(card);
+ });
+ lucide.createIcons(); // Re-renderizar ícones
+ }
+ 
+ /**
+ * Prepara a view do formulário para o paciente selecionado.
+ * @param {string} patientId - ID do paciente.
+ */
+ function handleSelectPatient(patientId) {
+ currentPatientId = patientId;
+ const patient = patients.find(p => p.id === patientId);
+
+ if (patient) {
+ document.getElementById('current-patient-name').textContent = patient.name;
+ document.getElementById('current-patient-id').textContent = `ID: ${patient.id} | Nova Coleta`;
+ 
+ // Limpar campos
+ document.getElementById('vitals-ta').value = '';
+ document.getElementById('vitals-temp').value = '';
+ document.getElementById('vitals-fc').value = '';
+ document.getElementById('vitals-spo2').value = '';
+ document.getElementById('evolution-note').value = '';
+ selectedSymptoms = [];
+ renderSymptomsChecklist();
+
+ switchView('new-data-view');
+ } else {
+ alert('Erro: Paciente não encontrado.');
+ }
+ }
+
+ /**
+ * Renderiza os botões de sintomas (checklist) no formulário.
+ */
+ function renderSymptomsChecklist() {
+ const container = document.getElementById('symptoms-checklist');
+ container.innerHTML = '';
+ 
+ commonSymptoms.forEach(symptom => {
+ const isActive = selectedSymptoms.includes(symptom);
+ const button = document.createElement('button');
+ button.textContent = symptom;
+ button.className = `px-4 py-2 text-sm rounded-full transition-colors font-medium border-2 btn-active ${
+ isActive ? 'bg-indigo-600 text-white border-indigo-700 shadow-md' : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
+ }`;
+ button.onclick = () => handleSymptomToggle(symptom);
+ container.appendChild(button);
+ });
+ }
+ 
+ /**
+ * Alterna o estado de seleção de um sintoma.
+ * @param {string} symptom - O sintoma a ser alternado.
+ */
+ function handleSymptomToggle(symptom) {
+ const index = selectedSymptoms.indexOf(symptom);
+ if (index > -1) {
+ selectedSymptoms.splice(index, 1); // Remove
+ } else {
+ selectedSymptoms.push(symptom); // Adiciona
+ }
+ renderSymptomsChecklist();
+ }
+
+ /**
+ * Simula o salvamento da coleta de dados.
+ */
+ function handleSaveCollection() {
+ const ta = document.getElementById('vitals-ta').value.trim();
+ const temp = document.getElementById('vitals-temp').value.trim();
+ const fc = document.getElementById('vitals-fc').value.trim();
+ const spo2 = document.getElementById('vitals-spo2').value.trim();
+ const note = document.getElementById('evolution-note').value.trim();
+
+ if (!ta || !temp || !note) {
+ // Usando uma div de alerta customizada seria o ideal, mas para este protótipo...
+ console.error('Dados incompletos');
+ alert('Por favor, preencha Tensão Arterial, Temperatura e a nota de Evolução para salvar.');
+ return;
+ }
+
+ const newEvolution = {
+ id: Date.now(),
+ date: new Date().toLocaleDateString('pt-BR'),
+ title: 'Coleta Mobile Rápida',
+ note: note,
+ vitals: { ta, temp, fc, spo2 },
+ symptoms: [...selectedSymptoms]
+ };
+
+ // 1. Simulação de salvamento (Adicionar ao mock data)
+ if (!evolutions[currentPatientId]) {
+ evolutions[currentPatientId] = [];
+ }
+ evolutions[currentPatientId].unshift(newEvolution); // Adiciona ao topo
+
+ // 2. Atualizar a data da última coleta do paciente
+ const patientIndex = patients.findIndex(p => p.id === currentPatientId);
+ if (patientIndex !== -1) {
+ patients[patientIndex].latest = newEvolution.date;
+ }
+ 
+ console.log('Dados Coletados Salvos (Simulado):', newEvolution);
+
+ alert(`Coleta de dados para ${patients[patientIndex].name} salva com sucesso!`);
+ 
+ // Volta para a lista de pacientes
+ switchView('patient-list-view');
+ }
+ 
+ /**
+ * Simula o processo de exportação de dados para pesquisa.
+ */
+ function handleExport() {
+ const btn = document.getElementById('btn-export');
+ btn.innerHTML = '<span class="animate-spin mr-2">⚙️</span> Anonimizando e Exportando...';
+ btn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+ btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+ btn.disabled = true;
+
+ setTimeout(() => {
+ // Exemplo de alerta após exportação simulada
+ alert(`Exportação concluída! ${patients.length} registros anônimos de pacientes gerados em CSV. (Simulado)`);
+
+ btn.innerHTML = '<i data-lucide="file-text" class="w-6 h-6 mr-2"></i> Exportar CSV (Dados Anônimos)';
+ btn.classList.add('bg-purple-600', 'hover:bg-purple-700');
+ btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+ btn.disabled = false;
+ lucide.createIcons();
+ }, 2500);
+ }
+
+ // --- Inicialização ---
+ document.addEventListener('DOMContentLoaded', () => {
+ // Inicializa os ícones Lucide
+ if (window.lucide) {
+ lucide.createIcons();
+ }
+ // Inicia o aplicativo na tela do Painel
+ switchView('dashboard-view');
+ renderSymptomsChecklist();
+ });
+ </script>
+</body>
+</html>
